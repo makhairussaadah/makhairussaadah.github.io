@@ -44,11 +44,19 @@ body{
   margin-bottom:15px;
 }
 
+/* Nama sekolah jadi dua baris */
 .school-name{
   font-size:20px;
   font-weight:bold;
+  margin-bottom:8px; /* jarak bawah ke judul */
+  line-height:1.2;
+}
+.school-name .line1,
+.school-name .line2{
+  display:block;
 }
 
+/* Judul sistem login agak turun */
 .exam-title{
   font-size:15px;
   opacity:.85;
@@ -143,7 +151,12 @@ button:hover{
   <div class="login-box" id="loginBox">
 
     <img src="logo.png" class="logo">
-    <div class="school-name">Madrasah Aliyah Khairussa’adah Kubu</div>
+
+    <div class="school-name">
+      <span class="line1">Madrasah Aliyah</span>
+      <span class="line2">Khairussa’adah Kubu</span>
+    </div>
+
     <div class="exam-title">Sistem Login Ujian</div>
 
     <div class="input-wrapper">
