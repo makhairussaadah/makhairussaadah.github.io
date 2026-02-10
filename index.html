@@ -1,136 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Ujian</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Ujian</title>
 
-  <style>
-    *{ box-sizing:border-box; }
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
 
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      font-family: Arial, sans-serif;
-      color:white;
-    }
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  font-family: Arial, sans-serif;
+  color:white;
+}
 
-    .login-wrapper{
-      width:100%;
-      padding:20px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
+.login-wrapper{
+  width:100%;
+  padding:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:0.3s;
+}
 
-    .login-box{
-      width:100%;
-      max-width:460px;
-      background:#0b1220;
-      padding:36px 28px;
-      border-radius:22px;
-      box-shadow:0 0 30px rgba(59,130,246,0.7);
-      text-align:center;
-    }
+.login-box{
+  width:100%;
+  max-width:460px;
+  background:#0b1220;
+  padding:36px 28px;
+  border-radius:22px;
+  box-shadow:0 0 30px rgba(59,130,246,0.7);
+  text-align:center;
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
 
-    .logo{
-      width:100px;
-      margin-bottom:15px;
-    }
+.logo{
+  width:100px;
+  margin-bottom:15px;
+}
 
-    .school-name{
-      font-size:20px;
-      font-weight:bold;
-      margin-bottom:4px;
-    }
+.school-name{
+  font-size:20px;
+  font-weight:bold;
+}
 
-    .exam-title{
-      font-size:15px;
-      opacity:0.85;
-      margin-bottom:25px;
-    }
+.exam-title{
+  font-size:15px;
+  opacity:.85;
+  margin-bottom:25px;
+}
 
-    input{
-      width:100%;
-      padding:14px;
-      margin-bottom:14px;
-      border-radius:12px;
-      border:none;
-      outline:none;
-      font-size:16px;
-    }
+.input-wrapper{
+  position:relative;
+  margin-bottom:14px;
+}
 
-    button{
-      width:100%;
-      padding:14px;
-      border:none;
-      border-radius:12px;
-      background:#3b82f6;
-      color:white;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-    }
+input{
+  width:100%;
+  padding:14px 42px 14px 14px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  font-size:16px;
+  transition:.3s;
+}
 
-    button:hover{
-      background:#2563eb;
-    }
+/* glow input */
+.input-wrapper.glow input{
+  box-shadow:0 0 12px rgba(251,191,36,.6);
+}
 
-    .info{
-      font-size:12px;
-      opacity:0.7;
-      margin-top:12px;
-    }
-  </style>
+/* ikon lampu */
+.toggle-lamp{
+  position:absolute;
+  top:50%;
+  right:12px;
+  transform:translateY(-50%);
+  width:26px;
+  height:26px;
+  cursor:pointer;
+}
+
+.toggle-lamp svg{
+  width:100%;
+  height:100%;
+  fill:#64748b;
+  transition:.3s;
+}
+
+/* lampu hidup */
+.toggle-lamp.on svg{
+  fill:#fbbf24;
+  filter: drop-shadow(0 0 8px rgba(251,191,36,.7));
+  animation: pulse 1.5s infinite;
+}
+
+/* animasi berdenyut lampu */
+@keyframes pulse{
+  0% { filter: drop-shadow(0 0 4px rgba(251,191,36,.5)); }
+  50% { filter: drop-shadow(0 0 12px rgba(251,191,36,.9)); }
+  100% { filter: drop-shadow(0 0 4px rgba(251,191,36,.5)); }
+}
+
+/* spotlight glow untuk seluruh box */
+.login-box.glow{
+  box-shadow: 0 0 30px rgba(251,191,36,0.7), 0 0 60px rgba(251,191,36,0.4) inset;
+  transition:0.4s;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:#3b82f6;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#2563eb;
+}
+
+.info{
+  font-size:12px;
+  opacity:.7;
+  margin-top:12px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="login-wrapper">
-    <div class="login-box">
+<div class="login-wrapper">
+  <div class="login-box" id="loginBox">
 
-      <img src="logo.png" class="logo" alt="Logo Sekolah">
+    <img src="logo.png" class="logo">
+    <div class="school-name">Madrasah Aliyah Khairussa’adah Kubu</div>
+    <div class="exam-title">Sistem Login Ujian</div>
 
-      <div class="school-name">Madrasah Aliyah Khairussa’adah Kubu</div>
-      <div class="exam-title">Sistem Login Ujian</div>
+    <div class="input-wrapper">
+      <input id="username" placeholder="Username / NIS">
+    </div>
 
-      <input id="username/Nis" type="text" placeholder="Username/Nis">
+    <div class="input-wrapper" id="passwordBox">
       <input id="password" type="password" placeholder="Password">
 
-      <button onclick="login()">Masuk</button>
-
-      <div class="info">
-        Login diawasi sistem • Jangan refresh halaman
-      </div>
-
+      <!-- IKON LAMPU -->
+      <span class="toggle-lamp" id="lamp" onclick="togglePassword()">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 21h6v-1H9v1zm3-20C7.9 1 5 3.9 5 7c0 2.4 1.3 4.5 3.2 5.6L8 17h8l-.2-4.4C17.7 11.5 19 9.4 19 7c0-3.1-2.9-6-7-6z"/>
+        </svg>
+      </span>
     </div>
+
+    <button onclick="login()">Masuk</button>
+
+    <div class="info">
+      Login diawasi sistem • Jangan refresh halaman
+    </div>
+
   </div>
+</div>
 
-  <!-- SCRIPT LOGIN -->
-  <script>
-    function login(){
-      const user = document.getElementById("username/Nis").value.trim();
-      const pass = document.getElementById("password").value.trim();
+<script>
+let visible = false;
 
-      if(user === "" || pass === ""){
-        alert("Username dan Password wajib diisi");
-        return;
-      }
+function togglePassword(){
+  const pass = document.getElementById("password");
+  const lamp = document.getElementById("lamp");
+  const box = document.getElementById("passwordBox");
+  const loginBox = document.getElementById("loginBox");
 
-      // CONTOH DATA LOGIN (sementara)
-      // nanti ini kita sambungkan ke Google Sheet
-      if(user === "siswa01" && pass === "12345"){
-        window.location.href =
-        "https://forms.gle/Lq8cgkkMeH8wEib27";
-      } else {
-        alert("Username atau Password salah");
-      }
+  visible = !visible;
+
+  if(visible){
+    pass.type = "text";
+    lamp.classList.add("on");
+    box.classList.add("glow");
+    loginBox.classList.add("glow");
+  }else{
+    pass.type = "password";
+    lamp.classList.remove("on");
+    box.classList.remove("glow");
+    loginBox.classList.remove("glow");
+  }
+}
+
+async function login(){
+  const u = username.value.trim();
+  const p = password.value.trim();
+  if(!u || !p) return alert("Username dan Password wajib diisi");
+
+  try{
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycbw0mf0ouc73g84I_pF97n-adZGTHdd9H4By64ed5oH0X7ybn2bofC1rqNQa9iZjo4U-BQ/exec"
+      +`?username=${u}&password=${p}`
+    );
+    const data = await res.json();
+    if(data.success){
+      location.href="https://forms.gle/mzs16H4rpqyV5jBP7";
+    }else{
+      alert("Username atau Password salah");
     }
-  </script>
+  }catch{
+    alert("Koneksi bermasalah");
+  }
+}
+</script>
 
 </body>
 </html>
