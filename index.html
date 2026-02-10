@@ -48,7 +48,7 @@ body{
 .school-name{
   font-size:20px;
   font-weight:bold;
-  margin-bottom:8px; /* jarak bawah ke judul */
+  margin-bottom:8px;
   line-height:1.2;
 }
 .school-name .line1,
@@ -214,7 +214,7 @@ async function login(){
 
   try{
     const res = await fetch(
-      "https://script.google.com/macros/s/AKfycbw0mf0ouc73g84I_pF97n-adZGTHdd9H4By64ed5oH0X7ybn2bofC1rqNQa9iZjo4U-BQ/exec"
+      "https://script.google.com/macros/s/AKfycbx8DfbU0GfTYLOIvoBXFSIj_EKpiSE2BvOUz_xmbiQKLjRYgnPHYgtprtIQo3W-jCWIkQ/exec"
       +`?username=${u}&password=${p}`
     );
     const data = await res.json();
