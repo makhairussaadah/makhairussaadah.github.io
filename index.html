@@ -184,6 +184,9 @@ button:hover{
 </div>
 
 <script>
+// 🌐 URL Web App Google Script kamu (ini yang kamu berikan)
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwPvez2hNjIAC6QkMcvLYc2Oy5T2zzbrf7o5hbzvRcXKqTMxsfUdfYW8CEB634qyMw6Aw/exec";
+
 let visible = false;
 
 function togglePassword(){
@@ -210,20 +213,21 @@ function togglePassword(){
 async function login(){
   const u = username.value.trim();
   const p = password.value.trim();
-  if(!u || !p) return alert("Username dan Password wajib diisi");
+  if(!u || !p){
+    alert("Username dan Password wajib diisi");
+    return;
+  }
 
   try{
-    const res = await fetch(
-      "https://script.google.com/macros/s/AKfycbx8DfbU0GfTYLOIvoBXFSIj_EKpiSE2BvOUz_xmbiQKLjRYgnPHYgtprtIQo3W-jCWIkQ/exec"
-      +`?username=${u}&password=${p}`
-    );
+    const res = await fetch(`${WEB_APP_URL}?username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`);
     const data = await res.json();
     if(data.success){
-      location.href="https://forms.gle/mzs16H4rpqyV5jBP7";
-    }else{
+      location.href = "https://forms.gle/mzs16H4rpqyV5jBP7";
+    } else {
       alert("Username atau Password salah");
     }
-  }catch{
+  }catch(e){
+    console.error(e);
     alert("Koneksi bermasalah");
   }
 }
